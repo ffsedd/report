@@ -1,0 +1,53 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+pip-selfcheck.json
+
+# Editor and IDE settings
+.vscode/
+.idea/
+
+# Testing / coverage
+htmlcov/
+.tox/
+.nox/
+coverage.*
+.cache
+.pytest_cache/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Logs and reports
+*.log
+*.tmp
+*.bak
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# UV lock and config (if not needed for reproducibility)
+uv.lock
+
+# LaTeX temp files (if using LaTeX)
+*.aux
+*.out
+*.toc
+*.log
+*.pdf
+*.fls
+*.fdb_latexmk
