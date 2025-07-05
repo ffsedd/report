@@ -1,26 +1,63 @@
 [project]
 name = "report"
 version = "0.1.0"
-description = "Add your description here"
+description = "Automated report generator with LaTeX and Jinja2"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.10" 
+license = { text = "MIT" }  # Or your preferred license
+authors = [{ name = "ffsedd", email = "ffsedd@gmail.com" }]
+
 dependencies = [
     "jinja2>=3.1.6",
     "pydantic>=2.11.7",
 ]
 
 [project.scripts]
-report = "report:main"
+report = "report.main:main"  # more specific: module.function
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-
 [tool.pytest.ini_options]
 pythonpath = ["src"]
+addopts = "-ra -q"  # Optional: cleaner pytest output
+testpaths = ["tests"]  # Optional: specify your test dir
 
-[dependency-groups]
-dev = [
+[tool.black]
+line-length = 99
+target-version = ['py310']  # or py311, depending on your real target
+
+[tool.ruff]
+line-length = 99
+extend-select = ["I", "B", "C4"]  # example: import order, bugbear, comprehensions
+src = ["src"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+mypy_path = ["src"]
+files = ["src"]
+
+[tool.coverage.run]
+source = ["src"]
+branch = true
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if __name__ == .__main__.:",
+]
+
+[tool.uv]
+virtualenvs.in-project = true  # if using uv and want .venv inside project
+
+[dependency-groups.dev]
+dependencies = [
     "black>=25.1.0",
+    "ruff>=0.4.0",
+    "pytest>=8.2.1",
+    "pytest-cov>=5.0.0",
+    "mypy>=1.10.0",
+    "ipykernel",
 ]
