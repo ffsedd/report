@@ -1,0 +1,21 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+
+\title{\VAR{title}}
+\author{\VAR{author}}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Figures}
+\BLOCK{for img in images}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{\VAR{img}}
+    \caption{Image: \VAR{img | replace("_", " ") | replace(".png", "")}}
+\end{figure}
+\BLOCK{endfor}
+
+\end{document}
