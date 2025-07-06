@@ -2,7 +2,7 @@ import shutil
 
 import pytest
 
-from reptex.compiler import compile_latex
+from reptex.compiler import compile_latex  # type: ignore
 
 MINIMAL_LATEX = r"""
 \documentclass{article}
