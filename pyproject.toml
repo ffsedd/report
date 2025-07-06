@@ -13,7 +13,7 @@ dependencies = [
 ]
 
 [project.scripts]
-report = "report.main:main"
+reptex = "reptex.main:main"
 
 [build-system]
 requires = ["setuptools >= 77.0.3"]

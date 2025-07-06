@@ -1,4 +1,0 @@
-data_dir = "/home/m/report1000"
-default_author = "Mike"
-default_template_path = "/home/m/uv/report/src/report/config/report_config.toml"
-default_report_config_path = "/home/m/uv/report/src/report/config/report_config.toml"
