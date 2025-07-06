@@ -26,97 +26,93 @@ def build_sections(cfg: Any = None) -> List[Section]:
             "datum": "5. července 2025",
         },
         "objednavka": {
-            "Nazev": "Kostel sv. Václava",
-            "Obec": "Libčice nad Vltavou",
-            "Cast": "centrum",
-            "Adresa": "Náměstí Svobody 12",
-            "Vlastnik": "Římskokatolická farnost Libčice",
-            "InvCislo": "INV-001234",
-            "Pamkat": "https://pamatkovykatalog.cz/",
-            "Cislo": "12345/7-6789",
-            "Material": "Opuka a omítka",
-            "Rozmer": "Výška fasády cca 12 m",
-            "Autor": "neznámý stavitel",
-            "Datace": "konec 17. století",
+            "nazev": "Kostel sv. Václava",
+            "obec": "Libčice nad Vltavou",
+            "cast": "centrum",
+            "adresa": "Náměstí Svobody 12",
+            "vlastnik": "Římskokatolická farnost Libčice",
+            "invcislo": "INV-001234",
+            "pamkat": "https://pamatkovykatalog.cz/",
+            "cislo": "12345/7-6789",
+            "material": "Opuka a omítka",
+            "rozmer": "Výška fasády cca 12 m",
+            "autor": "neznámý stavitel",
+            "datace": "konec 17. století",
         },
         "zadavatel": {
-            "Jmeno": "Město Libčice nad Vltavou",
-            "Ulice": "Husova 5",
-            "Psc": "252 66",
-            "Mesto": "Libčice nad Vltavou",
+            "jmeno": "Město Libčice nad Vltavou",
+            "ulice": "Husova 5",
+            "psc": "252 66",
+            "mesto": "Libčice nad Vltavou",
         },
         "odber": {
-            "Kdo": "Jan Novák a Petra Svobodová",
-            "Datum": "24. června 2025",
+            "kdo": "Jan Novák a Petra Svobodová",
+            "datum": "24. června 2025",
         },
         "images": {
-            "title": "images/t.jpg",
+            "title": "../images/t.jpg",
         },
     }
 
     strati_context = {
-        "cislo": "001",
-        "oznaceni": "A1",
-        "popis": "This is a sample description.",
-        "lokalizace": "Prague, Czechia",
-        "image": {
-            "a": "images/t.jpg",
-            "b": "images/t.jpg",
-            "c": "images/t.jpg",
-            "d": "images/t.jpg",
+        "vzorek": {
+            "cislo": "001",
+            "oznaceni_key": "Vzorek:",
+            "oznaceni": "A1",
+            "popis_key": "Popis:",
+            "popis": "Vzorek barvy z trámu.",
+            "lokalizace_key": "Místo:",
+            "lokalizace": "strop",
         },
-        "anot": {
+        "image": {
+            "a": "../images/t.jpg",
+            "b": "../images/t.jpg",
+            "c": "../images/t.jpg",
+            "d": "../images/t.jpg",
+        },
+        "anotation": {
             "a": "Annotation of A",
             "b": "Annotation B",
             "d": "Annotation D",
         },
-        "tex_table_popis": {
-            "strati": "This is stratigraphy description text in LaTeX.",
+        "caption": {
+            "a": "Caption A",
+            "b": "Caption B",
+            "c": "Caption C",
+            "d": "Caption D",
         },
-        "dic": {
-            "zprava": {
-                "vzorek_name": "Sample2",
-            }
+        "table": {
+            "caption": "Popis vzorku.",
+            "tex": r"Place tex table here.",
         },
-    }
-    strati_context2 = {
-        "cislo": "002",
-        "oznaceni": "A2",
-        "popis": "Omítka.",
-        "lokalizace": "Hlavice",
-        "image": {
-            "a": "images/t.jpg",
-            "b": "images/t.jpg",
-            "c": "images/t.jpg",
-            "d": "images/t.jpg",
-        },
-        "anot": {
-            "a": "Annotation of A",
-            "b": "Annotation B",
-            "d": "Annotation D",
-        },
-        "tex_table_popis": {
-            "strati": "This is stratigraphy description text in LaTeX.",
-        },
-        "dic": {
-            "zprava": {
-                "vzorek_name": "Sample2",
-            }
-        },
+        "newpage": r"\newpage",
     }
 
     zaver_context = {
-        "zprava": {
-            "vzorek_name": "Sample",
-        }
+        "section": "Záver",
+        "tex": r"Place tex here.",
+        "newpage": r"\newpage",
     }
+
+    zadani_context = {
+        "section": "Zadání průzkumu",
+        "text": "Popis odebraných vzorků a zadání průzkumu jsou uvedeny v následující tabulce.",
+        "table": {
+            "tex": "",
+            "popis": "Popis vzorků.",
+        },
+        "newpage": r"\newpage",
+    }
+
+    metody_context = {"section": "Metody", "tex": r"", "newpage": r"\newpage"}
 
     return [
         Section(template="aaa-packages.tex", context={}),
         Section(template="aaa-begin.tex.j2", context=report_info),
         Section(template="title.tex.j2", context=report_info),
+        Section(template="zadani.tex.j2", context=zadani_context),
+        Section(template="metody.tex.j2", context=metody_context),
         Section(template="strati.tex.j2", context=strati_context),
-        Section(template="strati.tex.j2", context=strati_context2),
         Section(template="zaver.tex.j2", context=zaver_context),
         Section(template="zzz-end.tex", context={}),
     ]

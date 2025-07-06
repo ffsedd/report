@@ -1,11 +1,11 @@
 import subprocess
 from pathlib import Path
 
+from reptex.compiler import compile_latex
 from reptex.config.config import load_config
 from reptex.config.logger import setup_logger
-from reptex.latex_compiler import compile_latex
+from reptex.renderer import render_templates
 from reptex.sections import build_sections
-from reptex.template_renderer import render_templates
 
 
 def main() -> None:

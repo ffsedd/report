@@ -3,7 +3,7 @@ title = "Report"
 author = "me"
 
 [paths]
-image_dir = "output/images"
+image_dir = "images"
 output_dir = "output"
 template_dir = "templates"
 
