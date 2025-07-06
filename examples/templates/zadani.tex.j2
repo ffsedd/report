@@ -1,0 +1,20 @@
+% ========================================================================
+% ||                            ZADANI                                   ||
+% ========================================================================
+\vspace*{0mm}       %  enables space between newpage and section
+\section{<< section >>} 
+\IfFileExists{zadanitext}{\input{zadanitext}}{%
+<< text >>}% 2TRANSLATE
+\vspace*{0mm}% repair excessive space around longtable
+\begin{center}%
+    \centering%
+%    \mytabstyle{}%
+    \setlength\extrarowheight{2pt}%
+    \renewcommand{\arraystretch}{1.1}% Spread rows out...
+    << table.tex >>
+%\vspace*{-4mm}% repair excessive space around longtable
+\capttab{<< table.popis >>}% 2TRANSLATE
+\end{center}
+%\vspace{2mm}
+%<< newpage >>
+%

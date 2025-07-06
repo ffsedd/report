@@ -1,0 +1,249 @@
+% ========================================================================
+% ||                            BEGIN                                   ||
+% ========================================================================
+
+\listfiles{}
+
+% SETTINGS --------------------------------------------------------
+\def\tabrowhei{1.5} % Table row height
+\def\myanotfontstyle{\color{red}\sffamily\bfseries} % Annotation font
+\setstretch{<< zprava.line_height >>} % Line height
+
+% DIRECTORIES -----------------------------------------------------
+\def\imgDir{img/}
+\def\dirFotoOdber{\imgDir odber/}
+\def\semDir{sem/}
+\def\pageDir{blocks/}
+\def\rulehei{0.8pt}
+
+% IMAGE SIZES -----------------------------------------------------
+\def\widBig{100mm}
+\def\widSmall{76mm}
+\def\higOdber{70mm}
+\def\figHeight{260pt}
+
+% SHORTCUTS -------------------------------------------------------
+\let\b\textbf
+\let\n\newpage
+\let\t\typeout
+\let\sub\textsubscript
+\let\sup\textsuperscript
+
+% CONDITIONAL DISPLAY ---------------------------------------------
+\newcommand\showif[2]{%
+  \ifthenelse{\equal{#1}{}}{}{#2}%
+}
+
+% PDF METADATA ----------------------------------------------------
+\hypersetup{
+  pdfinfo={
+    Title=<< zprava.title >> << zprava.cislo >>,
+    Author=Michal Pech,
+    Creator={xetex},
+    Producer={},
+    ModDate={},
+    CreationDate={<< zprava.datum >>}
+  }
+}
+
+% CUSTOM CAPTIONS -------------------------------------------------
+\def\captfont{\setmainfont[Ligatures=TeX]{Roboto Condensed}\centering\itshape\footnotesize\setstretch{1.0}\vspace*{0pt}}
+
+% COUNTERS --------------------------------------------------------
+\newcounter{loopcounter}
+\newcounter{countobr}
+\newcounter{counttab}
+\newcounter{countpriloha}
+
+\newcommand\captfig[1]{%
+  \stepcounter{countobr}%
+  {\captfont\par\strut Obr. \arabic{countobr}: #1\par\vspace*{-1pt}}%
+}
+
+\newcommand\capttab[1]{%
+  \stepcounter{counttab}%
+  {\captfont\vspace*{-1pt}\setstretch{1.2}\par\strut Tab. \arabic{counttab}: #1}%
+}    
+
+\newcommand\priloha[1]{%
+  \stepcounter{countpriloha}%
+  {\section{P\'r\'iloha \v{c}. \arabic{countpriloha} -- #1}\bigskip}%
+}
+
+% -------------------------------------------------------------------
+% IMAGE COMMANDS 
+% -------------------------------------------------------------------
+% Single helper: framed image with adjusted width & height minus fbox paddings
+\newcommand\imgFramed[3]{%
+  {%
+    \setlength{\fboxsep}{0pt}% no padding inside frame
+    \fbox{%
+      \includegraphics[
+        width=#2,
+        height=#3,
+        keepaspectratio
+      ]{#1}%
+    }%
+  }%
+}
+
+% Image with optional caption (#2), inside a minipage of width #3,
+% displayed at width #4 and height #5
+\newcommand\imgCapt[5]{%
+  \begin{minipage}[b][][t]{#3}%
+    \vspace{0pt}%
+    \centering
+    \imgFramed{#1}{#4}{#5}%
+    \showif{#2}{\captfig{#2}}%
+  \end{minipage}%
+}
+
+% Image with optional caption (#2) and optional file link (#6)
+\newcommand\imgCaptFile[6]{%
+  \begin{minipage}[c][][t]{#3}%
+    \centering
+    \imgFramed{#1}{#4}{#5}%
+    \ifx&#2&%
+      % no caption
+    \else%
+      \IfFileExists{#6}{%
+        \captfig{\textattachfile[mimetype=text/html,color=0 0 0]{#6}{#2}}%
+      }{%
+        \captfig{#2}%
+      }%
+    \fi
+  \end{minipage}%
+}
+
+% Image with caption (#2) and inline annotations (#6)
+% Outer minipage width #3, inner minipage width #4, height #5
+\newcommand\imgAnotCapt[6]{%
+  \begin{minipage}[b][][t]{#3}%
+    \vspace{0pt}%
+    \centering
+    \begin{minipage}[b][][t]{#4}%
+      \centering
+      \setlength{\unitlength}{0.01\linewidth}%
+      \begin{picture}(100,88)(0,.5)%
+        \put(0,.5){\imgFramed{#1}{\linewidth}{#5}}%
+        \myanotfontstyle #6%
+      \end{picture}%
+      \captfig{#2}%
+    \end{minipage}%
+  \end{minipage}%
+}
+
+
+
+% PDF APPENDIX ----------------------------------------------------
+\newcommand\prilohapdf[2]{%
+  \includepdf[pages=1,frame,scale=.85,pagecommand={\vspace*{-4mm}\priloha{#1}},offset=0 -1mm]{#2}%
+  \includepdf[pages=2-,frame,scale=.85,pagecommand={},offset=0 -1mm]{#2}%
+}
+
+\newcommand\prilohapdfonepage[2]{%
+  \includepdf[pages=1,frame,scale=.85,pagecommand={\vspace*{-4mm}\section{#1}},offset=0 -1mm]{#2}%
+}
+
+% SUPERSUBSCRIPT --------------------------------------------------
+\def\supersubscript#1#2{\rlap{\textsuperscript{{#1}}}\textsubscript{#2}}
+
+% TABLE STYLES ----------------------------------------------------
+\newcommand\tabstylenormal{%
+  \setmainfont[Ligatures=TeX]{<< zprava.popis_tab_font >>}%
+  \centering
+  \setlength\arrayrulewidth{0.3pt}
+  \setlength\tabcolsep{3pt}
+  \setlength\extrarowheight{0pt}
+  \normalsize
+}
+
+\newcommand\tabstylesmall{\tabstylenormal\small}
+\newcommand\rowstyle[1]{\gdef\currentrowstyle{#1}#1\ignorespaces}
+\newcommand\mytabstyle{\tabstylenormal}
+
+% STRATI TABLE ENVIRONMENT ----------------------------------------
+\newenvironment{tabStrati}[1]{%
+  \def\tabstratiparam{#1}%
+  \begin{center}
+    \mytabstyle{}
+    \renewcommand{\arraystretch}{<< zprava.popis_tab_height >>}%
+}{%
+  \vspace{-2pt}\capttab{\tabstratiparam}%
+  \end{center}%
+}
+
+
+% TABLES - Custom Column Types
+% Using array package, define new column types with specific alignments,
+% fonts, and vertical positioning.
+
+% Vertical middle alignment (m{}) with horizontal alignment specified
+
+% Left aligned, vertically centered fixed width column
+\newcolumntype{Q}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+% Centered, vertically centered fixed width column
+\newcolumntype{W}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+% Right aligned, vertically centered fixed width column
+\newcolumntype{E}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+
+% Vertically top aligned, fixed width columns using p{}
+
+% Left aligned, top aligned fixed width column
+\newcolumntype{B}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}p{#1}}
+
+% Right aligned, top aligned fixed width column
+\newcolumntype{A}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}p{#1}}
+
+% Centered, top aligned fixed width column
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}p{#1}}
+
+
+% Columns with custom fonts (Roboto Condensed) and styles
+
+% Roboto Condensed font, normal text, top aligned fixed width column
+\newcolumntype{T}[1]{>{\setmainfont[Ligatures=TeX]{Roboto Condensed}\let\newline\\\arraybackslash\hspace{0pt}}p{#1}}
+
+% Roboto Condensed font, centered text, top aligned fixed width column
+\newcolumntype{U}[1]{>{\setmainfont[Ligatures=TeX]{Roboto Condensed}\centering\let\newline\\\arraybackslash\hspace{0pt}}p{#1}}
+
+% Roboto Condensed font, small italic, centered fixed width column
+\newcolumntype{P}[1]{>{\setmainfont[Ligatures=TeX]{Roboto Condensed}\small\itshape\centering\let\newline\\\arraybackslash\hspace{0pt}}p{#1}}
+
+% Roboto Condensed font, small italic, centered column (without fixed width)
+\newcolumntype{N}{>{\setmainfont[Ligatures=TeX]{Roboto Condensed}\small\itshape\centering\let\newline\\\arraybackslash\hspace{0pt}}c}
+
+% Narrow column with scriptsize font, centered
+\newcolumntype{M}[1]{>{\scriptsize \centering \let\newline\\\arraybackslash\hspace{0pt}}p{#1}}
+
+% Small font, ragged right, left aligned column (variable width)
+\newcolumntype{O}{>{\small \raggedright\let\newline\\\arraybackslash\hspace{0pt}}l}
+
+
+
+% FOOTER ----------------------------------------------------------
+\defpagestyle{title}{}{}
+
+\defpagestyle{body}{}{
+  {\setstretch{1}\renewcommand\arraystretch{.8}\setlength\tabcolsep{0pt}\setlength\extrarowheight{0pt}\setlength{\parskip}{0ex}
+  \vspace*{0mm}
+  \noindent\color{gray!120}\rule[-1.5mm]{\linewidth}{\rulehei}
+  \vspace*{0mm}
+  \begin{tabular}[t]{l}
+    << zprava.company >> \\
+    << zprava.autor1 >> \\
+    << zprava.autor2 >> \\
+  \end{tabular}
+  \hfill
+  \begin{tabular}[t]{r}
+    << zprava.nazev >> << zprava.cislo >>, << zprava.datum >> \\
+    << objednavka.nazev >><% if objednavka.obec %>, << objednavka.obec >><% endif %> \\
+    Strana \thepage\ / \pageref*{LastPage} \\
+  \end{tabular}}
+}
+
+
+\begin{document} % DOCUMENT START

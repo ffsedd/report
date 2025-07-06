@@ -1,0 +1,92 @@
+% ========================================================================
+% ||                            STRATI                                   ||
+% ========================================================================
+
+% Define length variables and constants
+\def\colLeftWid{100mm}             % Width of the left column
+\def\colMidWid{2mm}            % Width of the right column
+\def\colRightWid{76mm}            % Width of the right column
+\def\figHeight{80mm}          % Fixed height for images and minipages
+\def\radekSkip{-15mm}           % Vertical skip between rows
+\def\imgLeftHei{.85\linewidth}
+\def\imgRightHei{.8\linewidth}
+
+
+% Optional padding around columns
+\newlength{\colpad}
+\setlength{\colpad}{4.8pt}
+
+% Define vzorek number macro for header/logging
+%\def\vzNo{<< vzorek.cislo >>}
+
+% Table Layout Adjustments
+\renewcommand{\arraystretch}{1.}  
+\setlength{\extrarowheight}{0pt}  
+\setstretch{1.}  
+
+% Begin main table with padded column widths
+\begin{tabular}{@{}p{\colLeftWid}@{}p{\colMidWid}@{}p{\colRightWid}@{}}% @{} = no horizontal padding
+
+% ===== Left column: Foto A =====
+<% if image.a %>
+  \imgAnotCapt{<< image.a >>}{<< caption.a >>}{\colLeftWid}{\linewidth}{\imgLeftHei}{<< anotation.a or '' >>}
+<% endif %>
+& &% empty middle column
+
+% ===== Right column: Info and Foto C =====
+\noindent
+\begin{minipage}[b][\figHeight][b]{\colRightWid}
+  \vspace*{0pt}
+  \renewcommand{\arraystretch}{1.1}
+  \begin{graybox}
+    \centering\sffamily\Large\bfseries << vzorek.oznaceni_key >> << vzorek.oznaceni >>
+  \end{graybox}
+  {
+    \footnotesize
+    \begin{tabular}{ B{10mm} B{57mm} }
+      <% if vzorek.popis %>
+        \itshape << vzorek.popis_key >> & << vzorek.popis >> \\
+      <% endif %>
+      <% if vzorek.lokalizace %>
+        \itshape << vzorek.lokalizace_key >> & << vzorek.lokalizace >> \\
+      <% endif %>
+    \end{tabular}
+  }
+  \vspace*{\fill}
+    <% if image.c %>
+      \imgCapt{<< image.c >>}{<< caption.c >>}{\colRightWid}{\linewidth}{\imgRightHei}
+    <% endif %>
+\end{minipage}
+
+\\[\radekSkip]% end of row 0
+
+% ===== Second row: Foto B and Foto D =====
+<% if image.b or image.d %>
+  <% if image.b %>
+    \imgAnotCapt{<< image.b >>}{<< caption.b >>}{\colLeftWid}{\linewidth}{\imgLeftHei}{<< anotation.b or '' >>}
+  <% else %>
+    \mbox{} % empty placeholder for left cell
+  <% endif %>
+  & &% empty middle column
+  <% if image.d %>
+    \imgAnotCapt{<< image.d >>}{<< caption.d >>}{\colRightWid}{\linewidth}{\imgLeftHei}{<< anotation.d or '' >>}
+  <% else %>
+    \mbox{} % empty placeholder for right cell
+  <% endif %>
+<% endif %>
+
+
+\\% end of row 1
+
+\end{tabular}
+
+% Optional stratigraphy description block
+<% if table.tex %>
+  \vspace*{-1.5mm}
+%  \begin{tabStrati}{Popis vzorku}
+    << table.caption >>
+%  \end{tabStrati}
+<% endif %>
+
+<< newpage >>
+

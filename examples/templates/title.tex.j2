@@ -1,0 +1,97 @@
+% ========================================================================
+% ||                            TITLE                                   ||
+% ========================================================================
+
+\def\leftcol{30mm}
+\def\rightcol{50mm}
+
+\begin{titlepage}
+
+    \vspace*{\fill}
+    \renewcommand{\arraystretch}{1}
+    \setstretch{1.3}
+    \normalsize
+    \centering
+
+    % ================== Report Title ==================
+    {\fontspec{Roboto} \scshape \large \addfontfeature{LetterSpace=10}
+        << zprava.nazev >>, zpr\'ava \v{c}. << zprava.cislo >>
+    }
+
+    \vspace{-3mm}
+    \rule{140mm}{\rulehei}
+    \vspace{5mm}
+
+    % ================== Object Information ==================
+    \begin{tabular}{p{\leftcol} p{\rightcol}}
+        <% if objednavka.nazev %>       Objekt         & \large{<< objednavka.nazev >>} \\ <% endif %>
+        <% if objednavka.obec %>        Obec           & \large{<< objednavka.obec >>}  \\ <% endif %>
+        <% if objednavka.cast %>        Část           & << objednavka.cast >>          \\ <% endif %>
+        <% if objednavka.adresa %>      Adresa         & << objednavka.adresa >>        \\ <% endif %>
+        <% if objednavka.vlastnik %>    Vlastník       & << objednavka.vlastnik >>      \\ <% endif %>
+        <% if objednavka.invcislo %>    Inv. číslo     & << objednavka.invcislo >>      \\ <% endif %>
+        <% if objednavka.pamkat %>
+            Číslo ÚSKP                   & \href{<< objednavka.pamkat >>}{<< objednavka.cislo >>} \\
+        <% elif objednavka.cislo %>
+            Číslo ÚSKP                   & << objednavka.cislo >> \\
+        <% endif %>
+        <% if objednavka.material %>    Materiál       & << objednavka.material >>      \\ <% endif %>
+        <% if objednavka.rozmer %>      Rozměry        & << objednavka.rozmer >>        \\ <% endif %>
+        <% if objednavka.autor %>       Autor          & << objednavka.autor >>         \\ <% endif %>
+        <% if objednavka.datace %>      Datace         & << objednavka.datace >>        \\ <% endif %>
+    \end{tabular}
+
+    \vfill
+
+    % ================== Title Photo ==================
+    \begin{minipage}[c][70mm][s]{70mm}
+        \centering
+        <% if images["title"] %>
+            \imgCapt{<< images.title >>}{}{70mm}{70mm}{70mm}
+        <% else %>
+            \fbox{\parbox{60mm}{
+                \centering
+                \small Image not found:\\
+                \texttt{<< images.title >>}
+            }}
+        <% endif %>
+    \end{minipage}
+
+    \vfill
+    \rule{100mm}{\rulehei}
+
+    % ================== Client and Report Info ==================
+    \begin{tabular}{p{\leftcol} p{\rightcol}}
+        <% if zadavatel.jmeno %>       Zadavatel       & << zadavatel.jmeno >>           \\ <% endif %>
+        <% if zadavatel.ulice %>                        & << zadavatel.ulice >>           \\ <% endif %>
+        <% if zadavatel.mesto %>                        & << zadavatel.psc >> << zadavatel.mesto >> \\ <% endif %>
+        <% if odber.kdo %>           Odběr, foto       & << odber.kdo >>                 \\ <% endif %>
+        <% if odber.datum %>         Datum odběru      & << odber.datum >>               \\ <% endif %>
+
+        Autoři průzkumu              & << zprava.autor1 >> \\
+                                     & << zprava.autor1_adresa >> \\
+                                     & << zprava.autor1_ic >> \\
+                                     & << zprava.autor2 >> \\
+                                     & << zprava.autor2_adresa >> \\
+                                     & << zprava.autor2_ic >> \\
+                                     & << zprava.autor_email >> \\
+                                     & << zprava.autor_web >> \\
+
+        Číslo zprávy                 & << zprava.cislo >> \\
+        Datum                        & << zprava.datum >> \\
+        Počet stran                  & \pageref*{LastPage} \\
+    \end{tabular}
+
+    \rule{100mm}{\rulehei}
+    \vspace*{10mm plus 30mm minus 10mm}
+
+\end{titlepage}
+
+% ================== Final Cleanup ==================
+\newpage
+\righthyphenmin=2
+\renewcommand{\arraystretch}{1}
+\setstretch{1}
+\restoregeometry
+\pagestyle{body}
+

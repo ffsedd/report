@@ -1,0 +1,165 @@
+% ================================================================
+% ||                      DOCUMENT CLASS                         ||
+% ================================================================
+\documentclass[10pt, a4paper, oneside, areasetadvanced]{scrartcl}
+
+% ================================================================
+% ||                        QUIET MODE                           ||
+% ================================================================
+\usepackage{silence}
+\WarningsOff[latex]      % suppress general LaTeX warnings
+\WarningsOff[fontspec]   % suppress fontspec warnings
+
+
+% ================================================================
+% ||                        FONT SETUP                           ||
+% ================================================================
+\usepackage{fontspec}
+\setmainfont[Ligatures=TeX]{Roboto}
+\usepackage{mathastext} % Use main font for math
+\setkomafont{pagefoot}{\fontspec{Roboto Light}\itshape\scshape\scriptsize\color{gray}}
+
+% ================================================================
+% ||                        PAGE GEOMETRY                        ||
+% ================================================================
+\usepackage{geometry}
+\newgeometry{
+  top=8mm, left=15mm, right=15mm, bottom=0mm,
+  foot=0mm, footskip=0mm,
+  headheight=8mm, headsep=0mm,
+  marginparsep=0mm, marginparwidth=0mm
+}
+\setlength{\textheight}{271mm}
+\setlength{\footheight}{0mm} % Avoids warning
+
+% ================================================================
+% ||                         LANGUAGE                            ||
+% ================================================================
+\usepackage{polyglossia}
+\setdefaultlanguage{czech}
+
+% ================================================================
+% ||                         ENCODING                            ||
+% ================================================================
+\usepackage[
+    xetex,
+    hidelinks,
+    bookmarks=true,
+    anchorcolor=black,
+]{hyperref}
+
+% ================================================================
+% ||                      DOCUMENT STRUCTURE                     ||
+% ================================================================
+\usepackage{scrlayer-scrpage}
+\usepackage{setspace}
+\setlength{\parskip}{0.3ex}
+\setlength{\parindent}{0em}
+\tolerance=5000  % Force justification
+
+% Section spacing
+
+\RedeclareSectionCommand[beforeskip=2ex plus 1.5ex minus 1.5ex, afterskip=0.2\baselineskip]{section}
+\RedeclareSectionCommand[beforeskip=1ex plus .5ex minus .5ex, afterskip=0.01\baselineskip]{subsection}
+\RedeclareSectionCommand[beforeskip=1ex plus .5ex minus .5ex, afterskip=0.2\baselineskip]{subsubsection}
+\RedeclareSectionCommand[beforeskip=1ex plus .5ex minus .5ex, afterskip=1pt]{paragraph}
+\RedeclareSectionCommand[beforeskip=-0.2\baselineskip, afterskip=-1em]{subparagraph}
+
+\setcounter{secnumdepth}{1}
+\setkomafont{disposition}{\raggedright\bfseries}
+\addtokomafont{section}{\large\bfseries\color{gray!170}}
+\addtokomafont{subsection}{\normalsize\color{gray!150}}
+
+\makeatletter
+\renewcommand{\sectionlinesformat}[4]{%
+  \Ifstr{#1}{section}{%
+    \parbox[t]{\linewidth}{%
+      \raggedsection\@hangfrom{\hskip #2#3}{#4}\par%
+      \kern-1.0\ht\strutbox\rule{\linewidth}{0.2mm}%
+    }%
+  }{%
+    \@hangfrom{\hskip #2#3}{#4}%
+  }%
+}
+% Remove numbering from subsections
+\def\@seccntformat#1{%
+  \expandafter\ifx\csname c@#1\endcsname\c@subsection\else
+  \expandafter\ifx\csname c@#1\endcsname\c@subsubsection\else
+  \csname the#1\endcsname\quad
+  \fi\fi
+}
+\makeatother
+
+% ================================================================
+% ||                         COLORS                              ||
+% ================================================================
+\usepackage{xcolor}
+\definecolor{grey}{rgb}{0.5, 0.5, 0.5}
+
+% ================================================================
+% ||                         TABLES                              ||
+% ================================================================
+\usepackage{booktabs}
+\usepackage{longtable}
+\setlength{\LTpre}{0pt}
+\setlength{\LTpost}{0pt}
+\usepackage{multicol}
+\usepackage{wrapfig}
+\usepackage{fixltx2e} % Fixes sub/superscript alignment
+\usepackage{array}
+\usepackage{setspace}
+
+% ================================================================
+% ||                         IMAGES                              ||
+% ================================================================
+\usepackage{graphicx}
+\usepackage{pdfpages}
+
+% ================================================================
+% ||                        TYPOGRAPHY                           ||
+% ================================================================
+\usepackage{microtype}
+
+% ================================================================
+% ||                         LINKS                               ||
+% ================================================================
+\usepackage{url}
+\usepackage{lastpage}
+
+% ================================================================
+% ||                         BIBLIOGRAPHY                        ||
+% ================================================================
+\usepackage[
+    backend=biber,
+    style=numeric,
+    sortlocale=de_DE,
+    natbib=true,
+    url=false,
+    doi=true,
+    eprint=false,
+]{biblatex}
+\addbibresource{blocks/ref/mybibtex.bib}
+
+% ================================================================
+% ||                     BOXED CONTENT STYLES                    ||
+% ================================================================
+\usepackage{tcolorbox}
+\tcbset{
+    colframe=gray!50,
+    colback=gray!20,
+    arc=0.2mm,
+    boxrule=0.2mm,
+    width=\linewidth
+}
+\newtcolorbox{graybox}{
+    colframe=gray!50,
+    colback=gray!10,
+    boxrule=0.2mm,
+    arc=0.2mm,
+    fontupper=\strut,
+    top=3pt,
+    left=0pt,
+    right=0pt,
+    bottom=0pt
+}
+
