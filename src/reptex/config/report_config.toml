@@ -1,0 +1,18 @@
+[metadata]
+title = "Report"
+author = "me"
+
+[paths]
+image_dir = "output/images"
+output_dir = "output"
+template_dir = "templates"
+
+[images]
+include_thumbnails = true
+caption_prefix = "Photo"
+extensions = [".png", ".tif"]
+
+[layout]
+margin_mm = 20.0
+font_size_pt = 12
+page_size = "Letter"
