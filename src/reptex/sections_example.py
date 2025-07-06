@@ -86,7 +86,7 @@ def build_sections(template_dir: Path) -> List[Section]:
                     "kdo": "Jan Novák a Petra Svobodová",
                     "datum": "24. června 2025",
                 },
-                "images": {"title": "../images/t.jpg"},
+                "images": {"title": "../images/example.png"},
             },
         ),
         Section(
@@ -122,10 +122,10 @@ def build_sections(template_dir: Path) -> List[Section]:
                     "lokalizace": "strop",
                 },
                 "image": {
-                    "a": "../images/t.jpg",
-                    "b": "../images/t.jpg",
-                    "c": "../images/t.jpg",
-                    "d": "../images/t.jpg",
+                    "a": "../images/example.png",
+                    "b": "../images/example.png",
+                    "c": "../images/example.png",
+                    "d": "../images/example.png",
                 },
                 "anotation": {
                     "a": "Annotation of A",
