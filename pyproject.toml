@@ -1,5 +1,5 @@
 [project]
-name = "report"
+name = "reptex"
 version = "0.1.0"
 description = "Automated report generator with LaTeX and Jinja2"
 readme = "README.md"

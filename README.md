@@ -1,4 +1,4 @@
-📄 Report Generator
+📄 RepTex - Modular Latex Report Generator
 
 A lightweight and extensible Python tool for generating PDF reports using **Jinja2** templates and **LaTeX**. Built for automation, readability, and flexibility — suitable for technical reports, documentation, or scientific papers.
 
@@ -25,7 +25,7 @@ uv pip install -e .
 
 report/
 ├── src/
-│   └── report/
+│   └── texreport/
 │       ├── main.py              # CLI entry point
 │       ├── config_loader.py     # Loads & validates TOML config using Pydantic
 │       ├── template_renderer.py # Jinja2 + LaTeX engine
